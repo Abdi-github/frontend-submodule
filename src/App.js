@@ -5,6 +5,8 @@ import HomePage from "./components/pages/HomePage";
 import ProductPage from "./components/pages/ProductPage";
 import CartPage from "./components/pages/CartPage";
 import { useDispatch, useSelector } from "react-redux";
+import RegisterPage from "./components/pages/RegisterPage";
+
 import SigninPage from "./components/pages/SigninPage";
 import { signout } from "./actions/userActions";
 
@@ -58,7 +60,9 @@ function App() {
           <Route path="/" component={HomePage} exact />
           <Route path="/product/:id" component={ProductPage} />
           <Route path="/cart/:id?" component={CartPage} />
-          <Route path="/signin" component={SigninPage}></Route>
+
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/signin" component={SigninPage} />
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

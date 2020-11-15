@@ -11,6 +11,8 @@ import SigninPage from "./components/pages/SigninPage";
 import { signout } from "./actions/userActions";
 import ShippingAddressPage from "./components/pages/ShippingAddressPage";
 import PaymentMethodPage from "./components/pages/PaymentMethodPage";
+import PlaceOrderPage from "./components/pages/PlaceOrderPage";
+import OrderDetailsPage from "./components/pages/OrderDetailsPage";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -67,6 +69,8 @@ function App() {
           <Route path="/signin" component={SigninPage} />
           <Route path="/shipping" component={ShippingAddressPage} />
           <Route path="/payment" component={PaymentMethodPage} />
+          <Route path="/placeorder" component={PlaceOrderPage} />
+          <Route path="/order/:id" component={OrderDetailsPage} />
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

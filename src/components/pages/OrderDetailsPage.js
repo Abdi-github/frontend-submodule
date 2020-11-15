@@ -119,7 +119,8 @@ const OrderDetailsPage = (props) => {
                         </div>
 
                         <div>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x {item.price} CHF ={" "}
+                          {item.qty * item.price} CHF
                         </div>
                       </div>
                     </li>
@@ -138,19 +139,19 @@ const OrderDetailsPage = (props) => {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>${order.itemsPrice.toFixed(2)}</div>
+                  <div>{order.itemsPrice.toFixed(2)} CHF</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>${order.shippingPrice.toFixed(2)}</div>
+                  <div>{order.shippingPrice.toFixed(2)} CHF</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>${order.taxPrice.toFixed(2)}</div>
+                  <div>{order.taxPrice.toFixed(2)} CHF</div>
                 </div>
               </li>
               <li>
@@ -159,7 +160,7 @@ const OrderDetailsPage = (props) => {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>${order.totalPrice.toFixed(2)}</strong>
+                    <strong>{order.totalPrice.toFixed(2)} CHF</strong>
                   </div>
                 </div>
               </li>

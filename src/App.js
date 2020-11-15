@@ -15,6 +15,7 @@ import PlaceOrderPage from "./components/pages/PlaceOrderPage";
 import OrderDetailsPage from "./components/pages/OrderDetailsPage";
 import OrderHistoryPage from "./components/pages/OrderHistoryPage";
 import UserProfileDetailsPage from "./components/pages/UserProfileDetailsPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -80,7 +81,10 @@ function App() {
           <Route path="/placeorder" component={PlaceOrderPage} />
           <Route path="/order/:id" component={OrderDetailsPage} />
           <Route path="/orderhistory" component={OrderHistoryPage} />
-          <Route path="/userProfile" component={UserProfileDetailsPage} />
+          <PrivateRoute
+            path="/userProfile"
+            component={UserProfileDetailsPage}
+          />
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

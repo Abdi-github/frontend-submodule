@@ -66,7 +66,7 @@ export const CartPage = (props) => {
                       ))}
                     </select>
                   </div>
-                  <div>${item.price}</div>
+                  <div>{item.price} CHF</div>
                   <div>
                     <button
                       type="button"
@@ -86,8 +86,8 @@ export const CartPage = (props) => {
           <ul>
             <li>
               <h2>
-                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
-                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :
+                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)} CHF
               </h2>
             </li>
             <li>

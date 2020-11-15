@@ -2,10 +2,11 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { detailsOrder } from "../../actions/orderActions";
+import { detailsOrder, payOrder } from "../../actions/orderActions";
 import Loading from "../Loading";
 import Message from "../Message";
 import { PayPalButton } from "react-paypal-button-v2";
+import { ORDER_PAY_RESET } from "../../constants/orderConstants";
 
 const OrderDetailsPage = (props) => {
   const orderId = props.match.params.id;
@@ -15,6 +16,14 @@ const OrderDetailsPage = (props) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    error: errorPay,
+    success: successPay,
+  } = orderPay;
+
   const dispatch = useDispatch();
   useEffect(() => {
     const addPayPalScript = async () => {
@@ -28,7 +37,9 @@ const OrderDetailsPage = (props) => {
       };
       document.body.appendChild(script);
     };
-    if (!order) {
+    if (!order || successPay || (order && order._id !== orderId)) {
+      dispatch({ type: ORDER_PAY_RESET });
+
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -39,10 +50,10 @@ const OrderDetailsPage = (props) => {
         }
       }
     }
-  }, [dispatch, order, orderId, sdkReady]);
+  }, [dispatch, order, orderId, sdkReady, successPay]);
 
-  const successPaymentHnadler = () => {
-    // TODO: dispatch pay order
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(order, paymentResult));
   };
 
   return loading ? (
@@ -157,10 +168,17 @@ const OrderDetailsPage = (props) => {
                   {!sdkReady ? (
                     <Loading />
                   ) : (
-                    <PayPalButton
-                      amount={order.totalPrice}
-                      onSuccess={successPaymentHnadler}
-                    ></PayPalButton>
+                    <>
+                      {errorPay && (
+                        <Message variant="danger">{errorPay}</Message>
+                      )}
+                      {loadingPay && <Loading />}
+
+                      <PayPalButton
+                        amount={order.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      ></PayPalButton>
+                    </>
                   )}
                 </li>
               )}
